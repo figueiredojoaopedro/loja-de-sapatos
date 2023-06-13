@@ -1,41 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     Card,
     Typography,
 } from "@material-tailwind/react";
 
+import api from "../../services/api";
+
 const TABLE_HEAD = ["Nome", "Marca", "Tamanho", "Atualizar", "Excluir"];
 
-const TABLE_ROWS = [
-    {
-        name: "John Michael",
-        brand: "Manager",
-        size: "56",
-    },
-    {
-        name: "Alexa Liras",
-        brand: "Developer",
-        size: "88",
-    },
-    {
-        name: "Laurent Perrier",
-        brand: "Executive",
-        size: "99",
-    },
-    {
-        name: "Michael Levi",
-        brand: "Developer",
-        size: "65",
-    },
-    {
-        name: "Richard Gran",
-        brand: "Manager",
-        size: "23",
-    },
-];
+export default function Example(props) {
 
-export default function Example() {
+    useEffect(() => {
+        props.getAllShoes();
+    }, [])
+
     return (
         <div className='w-full px-24'>
             <Card className="overflow-scroll h-full w-full">
@@ -56,8 +35,8 @@ export default function Example() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(({ name, brand, size }, index) => {
-                            const isLast = index === TABLE_ROWS.length - 1;
+                        {props.table_rows.map(({ name, brand, size }, index) => {
+                            const isLast = index === props.table_rows.length - 1;
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
                             return (
@@ -78,13 +57,13 @@ export default function Example() {
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography as="a" href="#" variant="small" color="blue" className="font-medium">
-                                            Atualizar
+                                        <Typography variant="small" color="blue" className="font-medium">
+                                            <button onClick={props.handleAtualizar}>Atualizar</button>
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography as="a" href="#" variant="small" color="red" className="font-medium">
-                                            Deletar
+                                        <Typography variant="small" color="red" className="font-medium">
+                                            <button onClick={props.handleDelete}>Deletar</button>
                                         </Typography>
                                     </td>
                                 </tr>
