@@ -6,6 +6,9 @@ import api from "../../services/api";
 
 const SistemaSapatos = () => {
 
+    const [funcaoBotaoSubmit, setFuncaoBotaoSubmit] = useState("Cadastrar");
+    const [mensagem, setMensagem] = useState("")
+
     const [table_rows, setTableRows] = useState([]);
     const [sapato, setSapato] = useState({
         name: "",
@@ -13,13 +16,29 @@ const SistemaSapatos = () => {
         brand: ""
     });
 
-
-    const handleDelete = async () => {
-
+    const handleDelete = async (event, obj) => {
+        event.preventDefault();
+        await api.delete(`/api/shoes/${obj._id}`)
+            .then(response => {
+                console.log("Item deletado", response);
+                setMensagem("Item deletado com sucesso!");
+                getAllShoes();
+            })
+            .catch( err => {
+                console.log("err", err);
+            } )
     }
 
-    const handleAtualizar = async () => {
+    const handleAtualizar = async (event, obj) => {
+        event.preventDefault();
+        setFuncaoBotaoSubmit("Atualizar");
 
+        setSapato({
+            name: obj.name,
+            size: obj.size,
+            brand: obj.brand,
+            _id: obj._id
+        })
     }
 
     const getAllShoes = async () => {
@@ -37,10 +56,10 @@ const SistemaSapatos = () => {
         <div className='w-full mt-10'>
             <Navbar />
             <div className='w-fit flex flex-col justify-center items-center mx-auto'>
-                <Forms sapato={sapato} setSapato={setSapato} getAllShoes={getAllShoes}/>
+                <Forms funcaoBotaoSubmit={funcaoBotaoSubmit} setFuncaoBotaoSubmit={setFuncaoBotaoSubmit} mensagem={mensagem} setMensagem={setMensagem} sapato={sapato} setSapato={setSapato} getAllShoes={getAllShoes}/>
             </div>
             <div className='w-full flex flex-col justify-center items-center mx-auto my-14'>
-                <Tabela table_rows={table_rows} getAllShoes={getAllShoes} handleDelete={handleDelete} handleAtualizar={handleAtualizar} />
+                <Tabela setFuncaoBotaoSubmit={setFuncaoBotaoSubmit} table_rows={table_rows} getAllShoes={getAllShoes} handleDelete={handleDelete} handleAtualizar={handleAtualizar} />
             </div>
             <Footer />
         </div>

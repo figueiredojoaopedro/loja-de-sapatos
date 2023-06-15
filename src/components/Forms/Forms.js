@@ -12,31 +12,48 @@ import { useEffect, useState } from "react";
 
 export default function Example(props) {
 
-    const [funcaoBotaoSubmit, setFuncaoBotaoSubmit] = useState("Cadastrar");
-    const [mensagem, setMensagem] = useState("")
-
     useEffect(() => {
-        setMensagem("");
+        props.setMensagem("");
     }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("teste", props.sapato );
-
-        if (funcaoBotaoSubmit === "Cadastrar"){
+        if (props.funcaoBotaoSubmit === "Cadastrar"){
             await api.post("/api/shoes/", props.sapato)
                 .then( response => {
-                    console.log("response", response);
-                    setMensagem("Cadastrado com sucesso.");
+                    // console.log("response", response);
+                    props.setMensagem("Cadastrado com sucesso.");
                     props.getAllShoes();
                 })
                 .catch( err => {
-                    setMensagem("O cadastro não foi realizado.")
+                    props.setMensagem("O cadastro não foi realizado.")
                     console.log("error", err);
                 })
         }
 
-        // await api.patch("")
+        if (props.funcaoBotaoSubmit === "Atualizar"){
+            console.log("teste", props.sapato._id);
+            let sapatoAtt = {
+                name: props.sapato.name,
+                brand: props.sapato.brand,
+                size: props.sapato.size
+            }
+            await api.patch(`/api/shoes/${props.sapato._id}`, sapatoAtt)
+                .then( response => {
+                    props.setMensagem("Atualização feita com sucesso!");
+                    props.setFuncaoBotaoSubmit("Cadastrar");
+                    props.setSapato({
+                        name: "",
+                        brand: "",
+                        size: ""
+                    })
+                    props.getAllShoes();
+                })
+                .catch(err => {
+                    props.setMensagem("A atualização não foi realizada.")
+                    console.log("error", err);
+                })
+        }
     }
 
     const onChangeForms = (event) => {
@@ -64,8 +81,15 @@ export default function Example(props) {
                         <Input value={props.sapato.brand} onChange={onChangeForms} size="lg" name="brand" label="Marca" />
                     </div>
                     <Button type="submit" className="mt-6" fullWidth>
-                        {funcaoBotaoSubmit}
+                        {props.funcaoBotaoSubmit}
                     </Button>
+                    {
+                        props.funcaoBotaoSubmit === "Atualizar" ?
+                            <Button type="submit" color="gray" className="mt-2" fullWidth>
+                                Cancelar
+                            </Button>
+                            : null
+                    }
                     <Typography color="gray" className="mt-4 text-center font-normal">
                         Está precisando de ajuda?{" "}
                         <a
@@ -77,7 +101,7 @@ export default function Example(props) {
                     </Typography>
                     <Typography
                         className="font-medium text-black">
-                        {mensagem}
+                        {props.mensagem}
                     </Typography>
                 </form>
             </Card>

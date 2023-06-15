@@ -5,8 +5,6 @@ import {
     Typography,
 } from "@material-tailwind/react";
 
-import api from "../../services/api";
-
 const TABLE_HEAD = ["Nome", "Marca", "Tamanho", "Atualizar", "Excluir"];
 
 export default function Example(props) {
@@ -35,35 +33,35 @@ export default function Example(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.table_rows.map(({ name, brand, size }, index) => {
+                        {props.table_rows.map((item, index) => {
                             const isLast = index === props.table_rows.length - 1;
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
                             return (
-                                <tr key={name}>
+                                <tr key={item.name}>
                                     <td className={classes}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {name}
+                                            {item.name}
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {brand}
+                                            {item.brand}
                                         </Typography>
                                     </td>
                                     <td className={classes}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {size}
+                                            {item.size}
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
                                         <Typography variant="small" color="blue" className="font-medium">
-                                            <button onClick={props.handleAtualizar}>Atualizar</button>
+                                            <button onClick={(event) => (props.handleAtualizar(event, item))}>Atualizar</button>
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
                                         <Typography variant="small" color="red" className="font-medium">
-                                            <button onClick={props.handleDelete}>Deletar</button>
+                                            <button onClick={(event) => (props.handleDelete(event, item))}>Deletar</button>
                                         </Typography>
                                     </td>
                                 </tr>
