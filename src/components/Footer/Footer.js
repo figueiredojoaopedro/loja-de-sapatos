@@ -10,7 +10,7 @@ export default function SimpleFooter() {
                 <li>
                     <Typography
                         as="a"
-                        href="#"
+                        href="https://www.instagram.com/caaio_l/"
                         color="white"
                         className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
                     >
@@ -20,7 +20,7 @@ export default function SimpleFooter() {
                 <li>
                     <Typography
                         as="a"
-                        href="#"
+                        href="https://www.instagram.com/gustavo.toni/"
                         color="white"
                         className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
                     >
@@ -30,7 +30,7 @@ export default function SimpleFooter() {
                 <li>
                     <Typography
                         as="a"
-                        href="#"
+                        href="https://www.instagram.com/zuck/"
                         color="white"
                         className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
                     >
