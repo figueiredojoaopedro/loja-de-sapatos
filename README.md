@@ -68,3 +68,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+// Visão geral
+
+O projeto desenvolvido, The Best Shoes, ilustra um sistema de estoque de sapatos, o qual foi feito com as seguintes tecnologias:
+No front-end, foi usado React.js, Tailwind.css e Axios. ReactJs para o desenvolvimento da aplicação em uma lógica mais componentizada e de fácil manutenção, tailwind foi usado para a estilização da página, uma vez que essa biblioteca ajuda na produtividade quando o assunto é escrever a folha de estilho, e por último, mas não menos importante, utilizamos o Axios para realizar a comunicação com a API REST que criamos.
+A API representa o back-end da nossa aplicação, a qual foi desenvolvida com express.js, uma biblioteca para Node.js que facilita o desenvolvimento de API's. Além disso, o sistema de banco de dados utilizado foi o mongodb, que foi manipulado pelo mongoose, uma biblioteca que ajuda no gerenciamento de bancos de dados com o Node.js.
+Sobre a questão de testes automatizados, utilizamos Jest e supertest para desenvolver a bateria de testes do programa.
